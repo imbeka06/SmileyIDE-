@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmileyIDE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.50.0/min/vs/loader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.28.1/full/pyodide.js"></script>
+</head>
+<body>
+    <div id="sidebar">
+        <button onclick="switchLanguage('javascript')">HTML/CSS/JS</button>
+        <button onclick="switchLanguage('python')">Python</button>
+        <button onclick="switchLanguage('java')">Java</button>
+        <button onclick="switchLanguage('cpp')">C/C++</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <div id="editor-container">
+        <div id="editor"></div>
+    </div>
+    <div id="preview"></div>
+    <div id="output"></div>
+    <button id="run-button" onclick="runCode()">Run</button>
+    <button id="ai-help-button" onclick="getAIHelp()">AI Help</button>
+    <script src="js/auth/session.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
