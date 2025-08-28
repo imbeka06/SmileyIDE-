@@ -1,0 +1,36 @@
+[33mcommit b6cdd1ab1246ecea469b495959d9d64f0de2f46f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: IMBEKA <imbeka06@gmail.com>
+Date:   Thu Aug 28 14:47:26 2025 +0300
+
+    added login style features  and
+
+[33mcommit d98c3dcef102cc7cff68ae67dee20e81fd63ab4b[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 66ca56b a9934f4
+Author: IMBEKA <imbeka06@gmail.com>
+Date:   Thu Aug 28 13:50:52 2025 +0300
+
+    resolved README and .gitignore conflicts
+
+[33mcommit 66ca56bbf0e0ab9bc87e91206efc3b487f0ab7af[m
+Author: IMBEKA <imbeka06@gmail.com>
+Date:   Thu Aug 28 13:40:27 2025 +0300
+
+    Merged local and remote histories
+
+[33mcommit 0de61d51b499d2cf00d05a4785c144b99d43c3e5[m
+Author: IMBEKA <imbeka06@gmail.com>
+Date:   Thu Aug 28 13:31:35 2025 +0300
+
+    change of file folder
+
+[33mcommit b6b26edfdd54d27b245eeb6fd4ab6a567dfd8f23[m
+Author: IMBEKA <imbeka06@gmail.com>
+Date:   Thu Aug 28 13:14:37 2025 +0300
+
+    file structure commit
+
+[33mcommit a9934f4796f24bff71d9dc5085758188099dc76f[m
+Author: Imbeka Musa <146805644+imbeka06@users.noreply.github.com>
+Date:   Thu Aug 28 13:10:11 2025 +0300
+
+    Initial commit
