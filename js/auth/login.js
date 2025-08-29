@@ -41,6 +41,7 @@ async function login(username, password) {
 
 document.getElementById('login-form').addEventListener('submit', (e) => {
     e.preventDefault();
+    console.log('Form submitted');
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     login(username, password);
