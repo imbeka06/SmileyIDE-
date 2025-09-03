@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmileyIDE - Language Selection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="language-selection">
+        <div class="container">
+            <div class="logo text-center mb-5">
+                <i class="fas fa-smile"></i>
+                <h1>SmileyIDE</h1>
+                <p>Select your programming language</p>
+            </div>
+            
+            <div class="language-cards">
+                <div class="language-card" data-lang="java">
+                    <div class="language-icon">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <h3>Java</h3>
+                    <p>LSP support with online compilation</p>
+                    <button class="btn btn-primary btn-sm mt-2">Select Java</button>
+                </div>
+                <div class="language-card" data-lang="python">
+                    <div class="language-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <p>Pyodide for offline execution</p>
+                    <button class="btn btn-primary btn-sm mt-2">Select Python</button>
+                </div>
+                <div class="language-card" data-lang="c">
+                    <div class="language-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>C</h3>
+                    <p>Emscripten for WebAssembly compilation</p>
+                    <button class="btn btn-primary btn-sm mt-2">Select C</button>
+                </div>
+                <div class="language-card" data-lang="cpp">
+                    <div class="language-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>C++</h3>
+                    <p>Emscripten for WebAssembly compilation</p>
+                    <button class="btn btn-primary btn-sm mt-2">Select C++</button>
+                </div>
+                <div class="language-card" data-lang="web">
+                    <div class="language-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML/CSS/JS</h3>
+                    <p>Live preview with DOM rendering</p>
+                    <button class="btn btn-primary btn-sm mt-2">Select Web</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth/session.js"></script>
+    <script>
+        // Check if user is logged in
+        if (!isLoggedIn()) {
+            window.location.href = 'login.html';
+        }
+
+        document.querySelectorAll('.language-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                const language = this.parentElement.getAttribute('data-lang');
+                localStorage.setItem('selectedLanguage', language);
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

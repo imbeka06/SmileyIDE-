@@ -3,29 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmileyIDE</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.50.0/min/vs/loader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.28.1/full/pyodide.js"></script>
+    <title>SmileyIDE - Your Coding Environment</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-    <div id="sidebar">
-        <button onclick="switchLanguage('javascript')">HTML/CSS/JS</button>
-        <button onclick="switchLanguage('python')">Python</button>
-        <button onclick="switchLanguage('java')">Java</button>
-        <button onclick="switchLanguage('cpp')">C/C++</button>
-        <button onclick="saveProject()">Save Project</button>
-        <button onclick="logout()">Logout</button>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 p-0 sidebar">
+                <div class="sidebar-title">PROJECT FILES</div>
+                <div class="file-item active">
+                    <i class="fas fa-file-code"></i> main.java
+                </div>
+                <div class="file-item">
+                    <i class="fas fa-file-code"></i> utils.py
+                </div>
+                <div class="file-item">
+                    <i class="fas fa-file-code"></i> helpers.c
+                </div>
+                <div class="file-item">
+                    <i class="fas fa-folder"></i> lib
+                </div>
+                <div class="file-item">
+                    <i class="fas fa-folder"></i> src
+                </div>
+                
+                <div class="mt-3">
+                    <div class="sidebar-title">AI ASSISTANT</div>
+                    <div class="ai-panel">
+                        <div class="ai-header">
+                            <div class="ai-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h5 class="ai-title">OpenAI Assistant</h5>
+                        </div>
+                        <div class="ai-features">
+                            <div class="ai-feature">Code explanations</div>
+                            <div class="ai-feature">Debugging assistance</div>
+                            <div class="ai-feature">Code optimization</div>
+                            <div class="ai-feature">Learning concepts</div>
+                        </div>
+                        <button class="btn-smiley w-100" id="askAI">
+                            <i class="fas fa-comment"></i> Ask OpenAI
+                        </button>
+                        <button class="btn-smiley w-100 mt-2" id="sendVideo">
+                            <i class="fas fa-video"></i> Send Video to AI
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Editor Area -->
+            <div class="col-md-7 p-0 editor-container">
+                <div class="editor-header">
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="java" selected>Java</option>
+                            <option value="python">Python</option>
+                            <option value="c">C</option>
+                            <option value="cpp">C++</option>
+                            <option value="html">HTML/CSS/JS</option>
+                        </select>
+                    </div>
+                    <div class="editor-toolbar">
+                        <button class="btn-smiley btn-run" id="runBtn">
+                            <i class="fas fa-play"></i> Run Code
+                        </button>
+                        <button class="btn-smiley" id="debugBtn">
+                            <i class="fas fa-bug"></i> Debug
+                        </button>
+                        <button class="btn-smiley" id="syntaxBtn">
+                            <i class="fas fa-check"></i> Check Syntax
+                        </button>
+                        <button class="btn-smiley btn-logout" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="editor" id="codeEditor">
+                    <p class="code-line"><span class="code-comment">// Welcome to SmileyIDE Java Editor</span></p>
+                    <p class="code-line"><span class="code-keyword">public class</span> Main {</p>
+                    <p class="code-line">    <span class="code-keyword">public static void</span> main(String[] args) {</p>
+                    <p class="code-line">        System.out.println(<span class="code-string">"Hello, World!"</span>);</p>
+                    <p class="code-line">        </p>
+                    <p class="code-line">        <span class="code-comment">// Calculate the sum of two numbers</span></p>
+                    <p class="code-line">        <span class="code-keyword">int</span> a = <span class="code-number">15</span>;</p>
+                    <p class="code-line">        <span class="code-keyword">int</span> b = <span class="code-number">25</span>;</p>
+                    <p class="code-line">        <span class="code-keyword">int</span> sum = a + b;</p>
+                    <p class="code-line">        </p>
+                    <p class="code-line">        System.out.println(<span class="code-string">"The sum of "</span> + a + <span class="code-string">" and "</span> + b + <span class="code-string">" is: "</span> + sum);</p>
+                    <p class="code-line">        </p>
+                    <p class="code-line">        <span class="code-comment">// Example of a simple loop</span></p>
+                    <p class="code-line">        <span class="code-keyword">for</span> (<span class="code-keyword">int</span> i = <span class="code-number">1</span>; i &lt;= <span class="code-number">5</span>; i++) {</p>
+                    <p class="code-line">            System.out.println(<span class="code-string">"Iteration: "</span> + i);</p>
+                    <p class="code-line">        }</p>
+                    <p class="code-line">    }</p>
+                    <p class="code-line">}</p>
+                </div>
+                
+                <div class="editor-status">
+                    <div class="status-item">
+                        <span class="status-indicator status-online"></span>
+                        <span>Java LSP Active</span>
+                    </div>
+                    <div class="status-item">
+                        <i class="fas fa-wifi me-1"></i>
+                        <span>Online Mode</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Output Area -->
+            <div class="col-md-3 p-0 output-container">
+                <div class="output-section">
+                    <div class="output-title">Output Console</div>
+                    <div class="output-content" id="outputConsole">
+                        <p class="output-line output-success">> Program compiled successfully</p>
+                        <p class="output-line output-success">> Running program...</p>
+                        <p class="output-line">Hello, World!</p>
+                        <p class="output-line">The sum of 15 and 25 is: 40</p>
+                        <p class="output-line">Iteration: 1</p>
+                        <p class="output-line">Iteration: 2</p>
+                        <p class="output-line">Iteration: 3</p>
+                        <p class="output-line">Iteration: 4</p>
+                        <p class="output-line">Iteration: 5</p>
+                        <p class="output-line output-success">> Program finished with exit code 0</p>
+                    </div>
+                </div>
+                
+                <div class="output-section">
+                    <div class="output-title">AI Suggestions</div>
+                    <div class="output-content" id="aiSuggestions">
+                        <p class="output-line text-info">> Code Analysis Complete</p>
+                        <p class="output-line">Your code is well-structured and follows good practices.</p>
+                        <p class="output-line">Suggestion: You could use a formatted string for the output:</p>
+                        <p class="output-line text-success">System.out.printf("The sum of %d and %d is: %d%n", a, b, sum);</p>
+                        <p class="output-line">This would make the code more readable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="editor-container">
-        <div id="editor"></div>
-    </div>
-    <div id="preview"></div>
-    <div id="output"></div>
-    <button id="run-button" onclick="runCode()">Run</button>
-    <button id="ai-help-button" onclick="getAIHelp()">AI Help</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/auth/session.js"></script>
     <script src="js/editor.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/languages/python.js"></script>
+    <script src="js/languages/java.js"></script>
+    <script src="js/languages/c_cpp.js"></script>
+    <script src="js/languages/html_css_js.js"></script>
+    <script src="js/ai/online.js"></script>
+    <script src="js/ai/offline.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
