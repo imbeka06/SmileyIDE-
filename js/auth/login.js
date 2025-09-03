@@ -4,6 +4,7 @@ function initDB() {
         const request = indexedDB.open('smileyide_users', 1);
         request.onupgradeneeded = (event) => {
             db = event.target.result;
+            console.log('DB opened');
             db.createObjectStore('users', { keyPath: 'username' });
         };
         request.onsuccess = (event) => {
