@@ -1,55 +1,104 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const userId = checkSession();
-    initEditor();
-    loadUserProjects(userId).then(projects => {
-        const sidebar = document.getElementById('sidebar');
-        projects.forEach(p => {
-            const btn = document.createElement('button');
-            btn.textContent = p.projectName;
-            btn.onclick = () => editor.setValue(p.code);
-            sidebar.appendChild(btn);
-        });
-    });
+// Main application logic
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if user is logged in
+    if (!isLoggedIn()) {
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    // Initialize the application
+    initializeEditor();
+    loadCode();
+    setupEventListeners();
 });
 
+function setupEventListeners() {
+    // Run button
+    document.getElementById('runBtn').addEventListener('click', runCode);
+    
+    // Debug button
+    document.getElementById('debugBtn').addEventListener('click', function() {
+        alert('Debug functionality would start here');
+    });
+    
+    // Syntax check button
+    document.getElementById('syntaxBtn').addEventListener('click', function() {
+        alert('Syntax check would happen here');
+    });
+    
+    // Logout button
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    
+    // Ask AI button
+    document.getElementById('askAI').addEventListener('click', function() {
+        const question = prompt('What would you like to ask?');
+        if (question) {
+            askAI(question);
+        }
+    });
+    
+    // Send video button
+    document.getElementById('sendVideo').addEventListener('click', function() {
+        alert('Video sending functionality would be implemented here');
+    });
+}
+
 async function runCode() {
-    const userId = sessionStorage.getItem('userId');
-    const code = getEditorContent();
-    const lang = editor.getModel().getLanguageId();
-    if (lang === 'python') {
-        await runPython(code);
-    } else if (lang === 'javascript') {
-        updatePreview(code);
-    } else if (lang === 'java') {
-        await compileJava(code, userId);
-    } else if (lang === 'cpp') {
-        document.getElementById('output').innerText = 'C/C++ coming in Phase 2';
+    const language = localStorage.getItem('selectedLanguage') || 'java';
+    const code = getCode();
+    
+    try {
+        let output;
+        
+        switch(language) {
+            case 'java':
+                output = await runJavaCode(code);
+                break;
+            case 'python':
+                output = await runPythonCode(code);
+                break;
+            case 'c':
+                output = await runCCode(code);
+                break;
+            case 'cpp':
+                output = await runCppCode(code);
+                break;
+            case 'html':
+                updateWebPreview();
+                output = "Web preview updated successfully.";
+                break;
+            default:
+                output = "Unsupported language";
+        }
+        
+        displayOutput(output);
+    } catch (error) {
+        displayOutput(`Error: ${error.message}`);
     }
 }
 
-async function saveProject() {
-    const userId = sessionStorage.getItem('userId');
-    const code = getEditorContent();
-    const projectName = prompt('Enter project name:');
-    if (projectName) {
-        await saveProject(userId, projectName, code);
-        alert('Project saved!');
-        // Refresh sidebar
-        loadUserProjects(userId).then(projects => {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.querySelectorAll('button.project').forEach(btn => btn.remove());
-            projects.forEach(p => {
-                const btn = document.createElement('button');
-                btn.textContent = p.projectName;
-                btn.className = 'project';
-                btn.onclick = () => editor.setValue(p.code);
-                sidebar.insertBefore(btn, sidebar.lastElementChild);
-            });
-        });
+function displayOutput(output) {
+    const outputElement = document.getElementById('outputConsole');
+    if (outputElement) {
+        outputElement.innerHTML = `<pre>${output}</pre>`;
     }
 }
 
-function getAIHelp() {
-    const code = getEditorContent();
-    document.getElementById('output').innerText = `AI analyzing:\n${code}\n(TinyLlama coming in Phase 3)`;
+async function askAI(question) {
+    const code = getCode();
+    
+    try {
+        const response = await askOpenAI(question, code);
+        displayAIResponse(response);
+    } catch (error) {
+        displayAIResponse(`Error: ${error.message}`);
+    }
+}
+
+function displayAIResponse(response) {
+    const suggestionsElement = document.getElementById('aiSuggestions');
+    if (suggestionsElement) {
+        suggestionsElement.innerHTML = `<pre>${response}</pre>`;
+    }
 }
