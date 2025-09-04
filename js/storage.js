@@ -1,31 +1,28 @@
-async function initProjectDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open('smileyide_projects', 1);
-        request.onupgradeneeded = (event) => {
-            const db = event.target.result;
-            db.createObjectStore('projects', { keyPath: 'id' });
-        };
-        request.onsuccess = (event) => resolve(event.target.result);
-        request.onerror = (event) => reject(event.target.error);
-    });
+// Data storage handling
+
+function saveCode() {
+    const code = getCode();
+    const language = localStorage.getItem('selectedLanguage') || 'java';
+    
+    // Save code to localStorage
+    localStorage.setItem(`smileyide_code_${language}`, code);
+    
+    // Show save confirmation
+    alert('Code saved successfully!');
 }
 
-async function loadUserProjects(userId) {
-    const db = await initProjectDB();
-    const tx = db.transaction('projects', 'readonly');
-    const store = tx.objectStore('projects');
-    const request = store.getAll();
-    return new Promise((resolve) => {
-        request.onsuccess = () => {
-            const projects = request.result.filter(p => p.userId === userId);
-            resolve(projects);
-        };
-    });
+function loadCode() {
+    const language = localStorage.getItem('selectedLanguage') || 'java';
+    const savedCode = localStorage.getItem(`smileyide_code_${language}`);
+    
+    if (savedCode) {
+        const editorElement = document.getElementById('codeEditor');
+        if (editorElement) {
+            editorElement.innerHTML = formatCodeForDisplay(savedCode);
+        }
+    }
 }
 
-async function saveProject(userId, projectName, code) {
-    const db = await initProjectDB();
-    const tx = db.transaction('projects', 'readwrite');
-    const store = tx.objectStore('projects');
-    store.put({ id: `${userId}_${projectName}`, userId, projectName, code });
-}
+// Make functions available globally
+window.saveCode = saveCode;
+window.loadCode = loadCode;
