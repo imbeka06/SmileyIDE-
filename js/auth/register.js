@@ -1,31 +1,22 @@
-let db;
-function initDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open('smileyide_users', 1);
-        request.onupgradeneeded = (event) => {
-            db = event.target.result;
-            db.createObjectStore('users', { keyPath: 'username' });
-        };
-        request.onsuccess = (event) => {
-            db = event.target.result;
-            resolve(db);
-        };
-        request.onerror = (event) => reject(event.target.error);
-    });
+// Registration functionality
+
+function registerUser(email, password) {
+    // In a real implementation, this would create a new user account
+    // For demo purposes, we'll just check if the user already exists
+    
+    if (localStorage.getItem('smileyide_user')) {
+        return false;
+    }
+    
+    const user = {
+        email: email,
+        name: email.split('@')[0],
+        remember: false
+    };
+    
+    setCurrentUser(user);
+    return true;
 }
 
-async function register() {
-    const username = prompt('Enter username:');
-    const password = prompt('Enter password:');
-    if (username && password) {
-        try {
-            db = await initDB();
-            const tx = db.transaction('users', 'readwrite');
-            const store = tx.objectStore('users');
-            store.put({ username, password });
-            alert('Registered! Please login.');
-        } catch (err) {
-            alert('Registration failed: ' + err.message);
-        }
-    }
-}
+// Make function available globally
+window.registerUser = registerUser;
