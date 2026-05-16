@@ -136,3 +136,11 @@ document.getElementById('deleteFileBtn').addEventListener('click', function () {
     const fileName = prompt('Enter file name to delete:');
     if (fileName) fileManager.deleteFile(fileName);
 });
+
+// Language selection functionality
+document.getElementById('languageSelect').addEventListener('change', function () {
+    const selectedLanguage = this.value;
+    const editor = monaco.editor.getModels()[0];
+    monaco.editor.setModelLanguage(editor, selectedLanguage);
+    alert(`Language changed to ${selectedLanguage}`);
+});
