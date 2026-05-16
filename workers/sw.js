@@ -16,6 +16,7 @@ self.addEventListener('install', (event) => {
                 '/js/config.js',
                 '/js/languages/python.js',
                 '/js/languages/html_css_js.js',
+                '/manifest.json',
                 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.50.0/min/vs/loader.min.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.50.0/min/vs/editor/editor.main.min.js',
                 'https://cdn.jsdelivr.net/pyodide/v0.28.1/full/pyodide.js'
