@@ -1,0 +1,27 @@
+{
+  "name": "smileyide",
+  "version": "1.0.0",
+  "description": "A semi-offline web-based IDE",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "jest",
+    "dev": "node server/index.js"
+  },
+  "keywords": [
+    "IDE",
+    "Editor",
+    "Web-based",
+    "Semi-offline"
+  ],
+  "author": "imbeka06",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
