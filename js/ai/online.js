@@ -1,0 +1,1 @@
+document.getElementById('output').innerText = 'Online AI (GPT-4) coming in Phase 3';

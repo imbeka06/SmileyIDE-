@@ -1,0 +1,15 @@
+{
+    "name": "SmileyIDE",
+    "short_name": "SmileyIDE",
+    "start_url": "/login.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1e90ff",
+    "icons": [
+        {
+            "src": "assets/icons/app-icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

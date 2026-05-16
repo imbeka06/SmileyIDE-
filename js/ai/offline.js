@@ -1,0 +1,1 @@
+document.getElementById('output').innerText = 'Offline AI (TinyLlama) coming in Phase 3';
