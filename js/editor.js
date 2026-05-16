@@ -97,12 +97,14 @@ const fileManager = {
     },
 
     updateFileList: function () {
-        const fileList = document.getElementById('fileList');
-        fileList.innerHTML = '';
+        const fileExplorer = document.getElementById('fileExplorer');
+        fileExplorer.innerHTML = '';
         for (const fileName in this.files) {
             const li = document.createElement('li');
+            li.className = 'list-group-item';
             li.textContent = fileName;
-            fileList.appendChild(li);
+            li.addEventListener('click', () => this.openFile(fileName));
+            fileExplorer.appendChild(li);
         }
     }
 };
